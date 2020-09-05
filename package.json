@@ -1,0 +1,45 @@
+{
+  "name": "medikal",
+  "version": "1.0.0",
+  "description": "`Hello World`",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "googleapis": "^59.0.0",
+    "joi": "^17.2.1",
+    "joi-objectid": "^3.0.1",
+    "lodash": "^4.17.20",
+    "moment": "^2.27.0",
+    "mongoose": "^5.10.0",
+    "multer": "^1.4.2",
+    "nodemailer": "^6.4.11",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "uuid": "^8.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "prettier": "^2.0.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RishabhJain-28/Medikal.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RishabhJain-28/Medikal/issues"
+  },
+  "homepage": "https://github.com/RishabhJain-28/Medikal#readme"
+}
