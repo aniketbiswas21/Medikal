@@ -1,0 +1,14 @@
+.appbar {
+  height: 2rem;
+  padding-top: 2px;
+}
+
+.sec3 {
+  background-image: url("../../images/11.jpg");
+  background-size: cover;
+  height: 32.4rem;
+}
+.card {
+  margin-top: 15rem;
+  margin-bottom: 0;
+}
