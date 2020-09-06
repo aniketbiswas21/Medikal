@@ -8,31 +8,33 @@ import Appointments from "../components/Hospital/Appointments";
 const Hospital = () => {
   return (
     <Layout>
-      <Grid container lg={12} spacing={1}>
-        <Grid item lg={8}>
-          <Grid container spacing={2}>
-            <Grid item lg={12}>
-              <ImageComp />
-            </Grid>
-          </Grid>
-          <Grid container spacing={2}>
-            <Grid item>
-              <Typography style={{ fontWeight: "600" }}>
-                Today's Doctors
-              </Typography>
-            </Grid>
-          </Grid>
-          <Container fixed>
+      <Container fixed>
+        <Grid container lg={12} spacing={1} style={{ marginTop: "3%" }}>
+          <Grid item lg={8}>
             <Grid container spacing={2}>
-              <HospitalCards />
+              <Grid item xs={12} lg={12}>
+                <ImageComp />
+              </Grid>
             </Grid>
-          </Container>
-        </Grid>
+            <Grid container spacing={2}>
+              <Grid item>
+                <Typography style={{ fontWeight: "600" }}>
+                  Today's Doctors
+                </Typography>
+              </Grid>
+            </Grid>
+            <Container fixed>
+              <Grid container spacing={2} justify="center">
+                <HospitalCards />
+              </Grid>
+            </Container>
+          </Grid>
 
-        <Grid item lg={4} spacing={1}>
-          <Appointments />
+          <Grid item xs={12} lg={4}>
+            <Appointments />
+          </Grid>
         </Grid>
-      </Grid>
+      </Container>
     </Layout>
   );
 };

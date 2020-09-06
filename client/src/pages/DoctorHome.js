@@ -27,7 +27,7 @@ const DoctorHome = () => {
           </Grid>
         </Grid>
         <Grid container spacing={6}>
-          <Grid item lg={3}>
+          <Grid item xs={12} sm={6} lg={3}>
             <Paper elevation={2} style={{ padding: "1rem" }}>
               <Grid container spacing={2}>
                 <Grid item xs={4}>
@@ -55,7 +55,7 @@ const DoctorHome = () => {
               </Grid>
             </Paper>
           </Grid>
-          <Grid item lg={3}>
+          <Grid item xs={12} sm={6} lg={3}>
             <Paper elevation={2} style={{ padding: "1rem" }}>
               <Grid container spacing={2}>
                 <Grid item xs={4}>
@@ -88,7 +88,7 @@ const DoctorHome = () => {
               </Grid>
             </Paper>
           </Grid>
-          <Grid item lg={3}>
+          <Grid item xs={12} sm={6} lg={3}>
             <Paper elevation={2} style={{ padding: "1rem" }}>
               <Grid container spacing={2}>
                 <Grid item xs={4}>
@@ -116,7 +116,7 @@ const DoctorHome = () => {
               </Grid>
             </Paper>
           </Grid>
-          <Grid item lg={3}>
+          <Grid item xs={12} sm={6} lg={3}>
             <Paper elevation={2} style={{ padding: "1rem" }}>
               <Grid container spacing={2}>
                 <Grid item xs={4}>

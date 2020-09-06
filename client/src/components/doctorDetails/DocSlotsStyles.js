@@ -6,9 +6,10 @@ export const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
   btn: {
-    border: "2px solid #000",
+    border: "1px solid #000",
     textAlign: "center",
     fontSize: "14px",
+    padding: "0.1rem",
     "&:hover": {
       cursor: "pointer",
       transform: "scale(1.1)",
@@ -17,8 +18,9 @@ export const useStyles = makeStyles((theme) => ({
   heading: {
     padding: "1rem",
     fontWeight: "600",
+    textAlign: "center",
   },
   time: {
-    padding: "0.6rem",
+    padding: "0.5rem",
   },
 }));

@@ -1,28 +1,72 @@
 import React, { useEffect } from "react";
-import "./css/NavBar.css";
 import logo from "../images/logo2.PNG";
-import { useDispatch } from "react-redux";
 import { getProfile } from "../redux/actions/authActions";
+import { Avatar, Grid, Button, Container, Hidden } from "@material-ui/core";
+import { useStyles } from "./css/NavBarStyles";
+import NavLanding from "./NavLanding";
 
 const Navbar = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getProfile());
-  }, []);
+  const classes = useStyles();
   return (
-    <div className="topnav" id="myTopnav">
-      <img src={logo} className="logo" />
-      <a href="/" className="active" style={{ marginLeft: "13rem" }}>
-        Home
-      </a>
-      <a href="/about">About</a>
-      <a href="/services">Services</a>
-      <a href="/doctors">Doctors</a>
-      <a href="/blog">Blog</a>
-      <a href="/portfolio">Portfolio</a>
-      <a href="/contact">Contact</a>
-      <button className="btn">Appointment</button>
-    </div>
+    <Grid container lg={12} className={classes.topnav}>
+      <Hidden mdDowm>
+        <Grid item lg={3} xs={0}>
+          <Avatar variant="square" src={logo} className={classes.avatar} />
+        </Grid>
+        <Grid item lg={6} justify="center">
+          <Container fixed>
+            <Grid container lg={12} spacing={0}>
+              <Grid item lg={2}>
+                <a href="/about" className={classes.link}>
+                  About
+                </a>
+              </Grid>
+              <Grid item lg={2}>
+                <a href="/services" className={classes.link}>
+                  Services
+                </a>
+              </Grid>
+              <Grid item lg={2}>
+                <a href="/doctors" className={classes.link}>
+                  Doctors
+                </a>
+              </Grid>
+              <Grid item lg={2}>
+                <a href="/blog" className={classes.link}>
+                  Blog
+                </a>
+              </Grid>
+              <Grid item lg={2}>
+                <a href="/portfolio" className={classes.link}>
+                  Portfolio
+                </a>
+              </Grid>
+              <Grid item lg={2}>
+                <a href="/contact" className={classes.link}>
+                  Contact
+                </a>
+              </Grid>
+            </Grid>
+          </Container>
+        </Grid>
+        <Grid item lg={3}>
+          <Container fixed>
+            <Grid container lg={12} justify="right">
+              <Grid item lg={12}>
+                <Button variant="contained" className={classes.btn}>
+                  Appointment
+                </Button>
+              </Grid>
+            </Grid>
+          </Container>
+        </Grid>
+      </Hidden>
+      <Hidden lgUp>
+        <Grid item xs={12}>
+          <NavLanding />
+        </Grid>
+      </Hidden>
+    </Grid>
   );
 };
 

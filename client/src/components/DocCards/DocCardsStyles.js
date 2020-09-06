@@ -53,5 +53,11 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: "28%",
     paddingLeft: "1rem",
     paddingRight: "1rem",
+    [theme.breakpoints.only("xs")]: {
+      marginTop: "20%",
+    },
+    [theme.breakpoints.only("sm")]: {
+      marginTop: "26%",
+    },
   },
 }));
