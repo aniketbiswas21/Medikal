@@ -38,7 +38,6 @@ const BlogSchema = new mongoose.Schema({
 
 // Delete corresponding photo to blog that will be deleted
 BlogSchema.post("remove", async (blog, next) => {
-  console.log(blog.photo, "yaay");
   fs.unlink(
     path.resolve(
       __dirname,

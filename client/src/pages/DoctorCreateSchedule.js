@@ -53,7 +53,8 @@ const DoctorCreateSchedule = () => {
   return (
     <Layout>
       <Container fixed>
-        <Grid container spacing={2}>
+        {console.log(slots)}
+        <Grid container spacing={2} className={classes.mainContainer}>
           <Grid item xs={12}>
             <h1>Create Schedule</h1>
           </Grid>
@@ -78,10 +79,10 @@ const DoctorCreateSchedule = () => {
                 <Grid container spacing={2} justify="space-between">
                   {slots.map((item, index) => (
                     <>
-                      <Grid item xs={4}>
+                      <Grid item xs={12} lg={4}>
                         <h2>Slot {index + 1}</h2>
                       </Grid>
-                      <Grid item xs={4}>
+                      <Grid item xs={12} lg={4}>
                         <TextField
                           id="from"
                           label="From"
@@ -100,7 +101,7 @@ const DoctorCreateSchedule = () => {
                           variant="outlined"
                         />
                       </Grid>
-                      <Grid item xs={4}>
+                      <Grid item xs={12} lg={4}>
                         <TextField
                           id="to"
                           label="To"

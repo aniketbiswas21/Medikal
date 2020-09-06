@@ -25,14 +25,14 @@ const organisationSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  fields: [
-    {
-      type: String,
-      // type: mongoose.Schema.Types.ObjectId,
-      // ref: "Slots",
-      required: true,
-    },
-  ],
+  // fields: [
+  //   {
+  //     type: String,
+  //     // type: mongoose.Schema.Types.ObjectId,
+  //     // ref: "Slots",
+  //     required: true,
+  //   },
+  // ],
   location: {
     latitude: { type: String, required: true },
     longitude: { type: String, required: true },

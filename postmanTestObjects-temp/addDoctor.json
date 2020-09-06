@@ -1,0 +1,34 @@
+// {
+//   "name": {
+//     "firstName": "abc",
+//     "lastName": "abc last"
+//   },
+//   "email": "abc@gmail.com",
+//   "contactNo": "9953038111",
+//   "emergencyContactNo": "9953038222",
+//   "password": "abc12345",
+//   "confirmPassword": "abc12345",
+//   "dateOfBirth": "8/30/2020",
+//   "gender": "male",
+//   "description": "doctor who ",
+//   "fields": ["field object id 1", "field object id 2"],
+//   "org": "org object id 1"
+// }
+
+{
+  "name": {
+    "firstName": "zxc",
+    "lastName": "zxc last"
+  },
+  "email": "zxc@gmail.com",
+  "contactNo": "9953038333",
+  "emergencyContactNo": "9953038444",
+  "password": "zxc12345",
+  "confirmPassword": "zxc12345",
+  "dateOfBirth": "8/30/2020",
+  "gender": "female",
+  "description": "doctor of doctors ",
+  "fields": ["field object id 3"],
+  "org": "org object id 2",
+  "timetable": []
+}

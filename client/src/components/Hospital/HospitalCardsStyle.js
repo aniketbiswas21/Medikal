@@ -37,4 +37,12 @@ export const useStyles = makeStyles((theme) => ({
     color: "darkgrey",
     fontSize: "13px",
   },
+  chip: {
+    backgroundColor: "#6A5ACD",
+
+    color: "#ffffff",
+    "&:hover": {
+      backgroundColor: "#330066",
+    },
+  },
 }));

@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { useStyles } from "./DocCardsStyles";
 import user from "../../images/pic.PNG";
-import { Avatar, Button } from "@material-ui/core";
+import { Avatar } from "@material-ui/core";
 import Chip from "@material-ui/core/Chip";
 
 const DocCards = () => {
@@ -30,7 +30,7 @@ const DocCards = () => {
   return (
     <>
       {patientList.map((item, index) => (
-        <Grid item lg={3}>
+        <Grid item xs={12} sm={6} lg={3}>
           <Paper
             elevation={2}
             className={
@@ -50,7 +50,7 @@ const DocCards = () => {
                 </Grid>
               </Grid>
               <Grid container spacing={1}>
-                <Grid item lg={12} className={classes.name} key={index}>
+                <Grid item xs={12} lg={12} className={classes.name} key={index}>
                   <Typography variant="h5">{item.name}</Typography>
                 </Grid>
                 <Grid item xs={12}>

@@ -13,4 +13,11 @@ export const useStyles = makeStyles((theme) => ({
       marginTop: "30%",
     },
   },
+  formContainer: {
+    marginTop: "5%",
+    justifyContent: "space-between",
+    [theme.breakpoints.down("md")]: {
+      justifyContent: "center",
+    },
+  },
 }));

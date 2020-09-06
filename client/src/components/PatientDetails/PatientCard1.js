@@ -11,7 +11,7 @@ const PatientCard1 = () => {
   const classes = useStyles();
   return (
     <>
-      <Grid item lg={2}>
+      <Grid item lg={2} xs={12} sm={12} md={8}>
         <Paper elevation={3}>
           <Grid container justify="center" spacing={2}>
             <Grid item lg={5}>

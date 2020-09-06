@@ -4,6 +4,7 @@ const crypto = require("crypto");
 
 // * Models
 const Organisation = require("../models/Organisation");
+const Doctor = require("../models/Doctor");
 
 // * Utils
 const validators = require("../validationSchemas/Organisation");
@@ -216,6 +217,45 @@ exports.forgotPassword = async (req, res) => {
     await organisation.save();
 
     res.status(200).send(organisation);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send("Server denied request.");
+  }
+};
+
+// * Verify Doctor
+// * Done
+exports.verifyDoctor = async (req, res) => {
+  try {
+    const {
+      value: { doctorId, isVerified },
+      error,
+    } = validators.verifyDoctor(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const doctor = await Doctor.findById(doctorId).exec();
+    if (!doctor) return res.status(400).send("Doctor not found.");
+
+    if (doctor.org !== req.user._id)
+      return res.status(400).send("Doctor not added to this organization");
+    doctor.isVerified = isVerified;
+    await doctor.save();
+    res.send(doctor);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send("Server denied request.");
+  }
+};
+
+// * get all unverified doctors for that organisation
+// * Done
+exports.getUnverifiedDoctors = async (req, res) => {
+  try {
+    const doctors = await Doctor.find({
+      org: req.user._id,
+      isVerified: false,
+    }).exec();
+    res.send(doctors);
   } catch (error) {
     console.log(error);
     res.status(400).send("Server denied request.");

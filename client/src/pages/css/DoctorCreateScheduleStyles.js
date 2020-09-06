@@ -9,9 +9,14 @@ export const useStyles = makeStyles((theme) => ({
   },
   btn: {
     backgroundColor: "#6A5ACD",
-    color: "#FFFFFF",
+    color: "#ffffff",
     "&:hover": {
       backgroundColor: "#330066",
+    },
+  },
+  mainContainer: {
+    [theme.breakpoints.down("md")]: {
+      marginTop: 10,
     },
   },
 }));

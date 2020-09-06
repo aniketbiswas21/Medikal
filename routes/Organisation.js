@@ -4,7 +4,7 @@ const express = require("express");
 const organisation = require("../controllers/Organisation");
 
 // * Middleware
-const { loginDoctor } = require("../middleware/Doctor"); //!
+// const { loginOrganisation } = require("../middleware/Organisation"); //!
 
 // * API Endpoints -->
 const router = express.Router();
@@ -12,7 +12,7 @@ const router = express.Router();
 // * Login User
 // * Done
 router.post("/login", (req, res, next) => {
-  passport.authenticate("patientLogin", (err, user, info) => {
+  passport.authenticate("organisationLogin", (err, user, info) => {
     if (err) return next(err);
     if (!user) return res.status(400).json(info);
 
@@ -55,6 +55,14 @@ router.post("/forgotPassword", organisation.forgotPasswordLink);
 // * Forgot Password ( Set new password )
 // * Done
 router.post("/forgotPassword/:token", organisation.forgotPassword);
+
+// * Verify doctor
+// ! check logged in
+router.post("/verify", organisation.verifyDoctor);
+
+// * get all unverified doctors for that organisation
+// ! check logged in
+router.get("/unverified", organisation.getUnverifiedDoctors);
 
 // * API Endpoint end -->
 

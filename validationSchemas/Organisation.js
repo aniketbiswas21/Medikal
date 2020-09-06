@@ -14,7 +14,7 @@ exports.newOrganisation = (body) => {
       .pattern(/[6-9]{1}[0-9]{9}/)
       .required(),
     // fields: Joi.array().items(Joi.objectId().required()).required(), //.min(1)//! commented for testing
-    fields: Joi.array().items(Joi.string().required()).required(), //.min(1)//! only for testing
+    // fields: Joi.array().items(Joi.string().required()).required(), //.min(1)//! only for testing
     location: Joi.object({
       latitude: Joi.string().trim().min(3).max(100).required(),
       longitude: Joi.string().trim().min(3).max(100).required(),
@@ -60,6 +60,13 @@ exports.forgotPassword = (body) => {
   const schema = Joi.object({
     password: Joi.string().min(6).max(100).trim().required(),
     confirmPassword: Joi.string().min(6).max(100).trim().required(),
+  });
+  return schema.validate(body);
+};
+exports.verifyDoctor = (body) => {
+  const schema = Joi.object({
+    doctorId: Joi.objectId().required(),
+    isVerified: Joi.boolean().required(),
   });
   return schema.validate(body);
 };

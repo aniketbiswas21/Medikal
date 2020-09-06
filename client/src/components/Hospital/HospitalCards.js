@@ -1,6 +1,7 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import Chip from "@material-ui/core/Chip";
 import Typography from "@material-ui/core/Typography";
 import { useStyles } from "./HospitalCardsStyle";
 import user from "../../images/pic.PNG";
@@ -26,7 +27,7 @@ const HospitalCards = () => {
   return (
     <>
       {doctorList.map((item, index) => (
-        <Grid item lg={3}>
+        <Grid item xs={10} sm={6} lg={3}>
           <Paper elevation={3} className={classes.paper}>
             <Grid container justify="center" spacing={1}>
               <Grid item lg={5}>
@@ -56,6 +57,11 @@ const HospitalCards = () => {
                   precision={0.5}
                   size="small"
                 />
+              </Grid>
+            </Grid>
+            <Grid container justify="center" spacing={2}>
+              <Grid item lg={4}>
+                <Chip label="Edit" clickable className={classes.chip} />
               </Grid>
             </Grid>
             <hr className={classes.line} />

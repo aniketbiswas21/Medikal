@@ -1,0 +1,17 @@
+{
+  "name": "org101",
+  "description": "HOSPITAL DESC ! ",
+  "email": "org101@gmail.com",
+  "password": "org101",
+  "confirmPassword": "org101",
+  "contactNumber": 8989898989,
+  "fields": ["field1", "field2"],
+  "location": {
+    "latitude": "120.021",
+    "longitude": "210.012",
+    "city": "city1",
+    "state": "state1",
+    "area": "area1",
+    "address": "near address"
+  }
+}

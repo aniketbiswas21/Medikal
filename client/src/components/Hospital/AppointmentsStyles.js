@@ -3,6 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 export const useStyles = makeStyles((theme) => ({
   paper: {
     height: "80vh",
+    [theme.breakpoints.down("md")]: {
+      marginTop: "5%",
+    },
   },
   heading: {
     fontWeight: "600",

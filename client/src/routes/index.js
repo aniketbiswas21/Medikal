@@ -15,7 +15,16 @@ import DoctorHome from "../pages/DoctorHome";
 import PatientDetails from "../pages/PatientDetails";
 import Hospital from "../pages/Hospital";
 import DoctorCreateSchedule from "../pages/DoctorCreateSchedule";
+import VideoCollection from "../components/VideoCalling/VideoCollection";
 import PatientHome from "../pages/PatientHome";
+import DoctorDetails from "../pages/DoctorDetails";
+import PatientAppointment from "../pages/PatientAppointment";
+import DoctorApproval from "../pages/DoctorApproval";
+import EditAppointment from "../pages/EditAppointment";
+import VerifyAppointments from "../pages/VerifyAppointments";
+import Profile from "../pages/Profile";
+import Donation from "../pages/Donation";
+import Chat from "../pages/Chat";
 
 const Routes = () => {
   return (
@@ -35,12 +44,29 @@ const Routes = () => {
         <Route exact path="/addBlog" component={addBlog} />
         <Route exact path="/patient/details" component={PatientDetails} />
         <Route exact path="/hospital" component={Hospital} />
+        <Route exact path="/meet/:roomId" component={VideoCollection} />
         <Route
           exact
           path="/doctor/create-schedule"
           component={DoctorCreateSchedule}
         />
         <Route exact path="/patient/home" component={PatientHome} />
+        <Route exact path="/doctor/:id" component={DoctorDetails} />
+        <Route
+          exact
+          path="/patient/appointment"
+          component={PatientAppointment}
+        />
+        <Route exact path="/approval" component={DoctorApproval} />
+        <Route exact path="/edit/appointment" component={EditAppointment} />
+        <Route
+          exact
+          path="/organisations/appointments"
+          component={VerifyAppointments}
+        />
+        <Route exact path="/profile" component={Profile} />
+        <Route exact path="/donation" component={Donation} />
+        <Route exact path="/chat" component={Chat} />
       </Switch>
     </div>
   );

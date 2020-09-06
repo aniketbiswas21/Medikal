@@ -13,10 +13,17 @@ exports.createPatient = (body) => {
         email: Joi.string().email().required(),
       })
       .required(),
-    contactNo: Joi.string().length(10).trim().required(),
+    contactNo: Joi.string()
+      .length(10)
+      .pattern(/[6-9]{1}[0-9]{9}/)
+      .trim()
+      .required(),
     password: Joi.string().min(6).max(100).trim().required(),
     confirmPassword: Joi.string().min(6).max(100).trim().required(),
-    emergencyContactNo: Joi.string().length(10).trim(),
+    emergencyContactNo: Joi.string()
+      .length(10)
+      .pattern(/[6-9]{1}[0-9]{9}/)
+      .trim(),
     dateOfBirth: Joi.date().required(),
     gender: Joi.string()
       .lowercase()
@@ -58,6 +65,14 @@ exports.changePassword = (body) => {
 exports.changeEmail = (body) => {
   const schema = Joi.object({
     newEmail: Joi.string().email().required(),
+  });
+
+  return schema.validate(body);
+};
+
+exports.forgotPasswordLink = (body) => {
+  const schema = Joi.object({
+    email: Joi.string().email().required(),
   });
 
   return schema.validate(body);

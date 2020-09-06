@@ -18,7 +18,7 @@ const PatientDetails = () => {
         </Grid>
       </Grid>
       <Container fixed>
-        <Grid container lg={12} spacing={1}>
+        <Grid container lg={12} spacing={1} justify="center">
           <PatientCard1 />
           <PatientCard2 />
           <PatientNotes />

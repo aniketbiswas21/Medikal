@@ -22,8 +22,28 @@ export const useStyles = makeStyles((theme) => ({
   },
   forgottenText: {
     color: "#6A5ACD",
+    cursor: "pointer",
   },
   forgottenTextContainer: {
     margin: "auto",
+  },
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+  sendMailBtn: {
+    height: "55px",
+    backgroundColor: "#42B72A",
+    color: "white",
+    "&:hover": {
+      backgroundColor: "#006400",
+    },
   },
 }));

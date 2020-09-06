@@ -28,7 +28,11 @@ const PatientApp = () => {
   ];
   return (
     <>
+<<<<<<< HEAD
       <Grid item lg={8}>
+=======
+      <Grid item lg={8} xs={12} md={12} sm={12}>
+>>>>>>> ecaec51f26ef964e01f4011d254aa4b0951edf40
         <Paper elevation={3} style={{ backgroundColor: "#e3e5e3" }}>
           <Container fixed>
             <Grid container spacing={3}>

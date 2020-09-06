@@ -10,7 +10,7 @@ const PatientNotes = () => {
   const classes = useStyles();
   return (
     <>
-      <Grid item lg={4}>
+      <Grid item lg={4} xs={12} sm={12} md={12}>
         <Paper elevation={3}>
           <Container fixed>
             <Grid container spacing={2}>
