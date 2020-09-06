@@ -32,27 +32,28 @@ router.post("/login", (req, res, next) => {
 
 // * Get My Profile
 // * Done
-router.get("/profile", patient.getMyProfile);
+router.get("/profile",[ loginPatient ], patient.getMyProfile);
 
 // * Verify Email ( Send link to email )
-router.get("/profile/verifyEmail", patient.verifyEmailLink);
+router.get("/profile/verifyEmail", [ loginPatient ], patient.verifyEmailLink);
 
 // * Verify Email ( Click the link send to email )
 router.get("/profile/verifyEmail/:token", patient.verifyEmail);
 
 // * Get a single profile
-// * Done (Format => {format => /get?id=} )
-router.get("/get", patient.getPatient);
+// * Done
+// ! Would restrict it to be used only by doctors and orgs
+router.get("/get", [ emailVerifiedPatient ],patient.getPatient);
 
 // * Edit Profile
-router.post("/profile/edit", patient.editProfile);
+router.post("/profile/edit", [ loginPatient ], patient.editProfile);
 
 // * Change Password
 // * Done
-router.post("/profile/changePassword", patient.changePassword);
+router.post("/profile/changePassword", [loginPatient] ,patient.changePassword);
 
 // * Change Email
-router.post("/profile/changeEmail", patient.changeEmail);
+router.post("/profile/changeEmail", [ loginPatient ], patient.changeEmail);
 
 // * Forgot Password ( Send link to email )
 router.post("/forgotPassword", patient.forgotPasswordLink);

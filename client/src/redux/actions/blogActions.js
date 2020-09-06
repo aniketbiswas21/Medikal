@@ -46,20 +46,6 @@ export const publishBlog = (formData) => async (dispatch) => {
         type: ADD_BLOG,
       });
     }
-    // .then((data) => {
-    //   console.log(data);
-    //   swal("success", "Blog published successfully", "success");
-    //   return {
-    //     type: ADD_BLOG,
-    //   };
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    //   swal("Failed", "Could not publish blog.Please try again", "error");
-    //   return {
-    //     type: BLOGS_ERROR,
-    //   };
-    // });
   } catch (err) {
     console.log(err);
     swal("Failed", "Could not publish blog.Please try again", "error");

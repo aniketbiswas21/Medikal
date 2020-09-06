@@ -153,6 +153,7 @@ exports.updateBlogById = asyncHandler(async (req, res) => {
 // @desc     Like a blog
 // @route    PUT /api/blog/like/:id
 // @access   Private
+// TODO
 exports.likeBlogById = asyncHandler(async (req, res) => {
   try {
     // Check if the blog exists

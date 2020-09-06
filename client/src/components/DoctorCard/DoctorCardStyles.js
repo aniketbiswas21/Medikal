@@ -14,6 +14,14 @@ export const useStyles = makeStyles((theme) => ({
   avatar: {
     width: theme.spacing(15),
     height: theme.spacing(15),
+    [theme.breakpoints.only("xs")]: {
+      width: theme.spacing(8),
+      height: theme.spacing(8),
+    },
+    [theme.breakpoints.only("sm")]: {
+      width: theme.spacing(12),
+      height: theme.spacing(12),
+    },
   },
   doctorName: {
     fontSize: "1.2rem",

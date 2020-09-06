@@ -5,39 +5,39 @@ import { Container, Typography } from "@material-ui/core";
 import { useStyles } from "./DocDetailsStyles.js";
 import { Button } from "@material-ui/core";
 
-const DocDetails = () => {
+const DocDetails = ({ doctor }) => {
   const classes = useStyles();
   return (
     <>
       <Paper elevation={3} className={classes.paper}>
         <Container fixed>
           <Grid container spacing={2}>
-            <Grid item lg={12}>
+            <Grid item lg={12} xs={12} md={12} sm={12}>
               <Typography className={classes.info}>INFO</Typography>
             </Grid>
           </Grid>
         </Container>
         <br />
         <Grid container spacing={1}>
-          <Grid item lg={4}>
+          <Grid item lg={4} xs={4} md={4} sm={4}>
             <Container fixed>
               <Grid container spacing={2}>
                 <Grid item lg={12}>
                   <Typography className={classes.address}>
-                    Random Address, City
+                    {doctor.org}
                     <br />
-                    State, Country
+                    India
                     <hr className={classes.line} />
-                    Landmark: Hello World
+                    {/* Landmark: Hello World */}
                   </Typography>
                 </Grid>
               </Grid>
             </Container>
           </Grid>
-          <Grid item lg={4}>
+          <Grid item lg={4} xs={4} md={4} sm={4}>
             <Container fixed>
               <Grid container spacing={2}>
-                <Grid item lg={12}>
+                <Grid item lg={4}>
                   <Typography className={classes.address}>
                     <span className={classes.heading}>Mon-Fri</span>
                     <hr className={classes.line} />
@@ -50,14 +50,14 @@ const DocDetails = () => {
               </Grid>
             </Container>
           </Grid>
-          <Grid item lg={4}>
+          <Grid item lg={4} xs={4} md={4} sm={4}>
             <Typography className={classes.text}>
               <i className="fas fa-rupee-sign"></i> 250
               <br />
               <i className="fas fa-credit-card"></i> Online Payment Available
             </Typography>
             <Button variant="contained" className={classes.btn}>
-              Book Appointment
+              Appointment
             </Button>
           </Grid>
         </Grid>

@@ -1,6 +1,7 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import Chip from "@material-ui/core/Chip";
 import { Container, Typography } from "@material-ui/core";
 import { useStyles } from "./AppointmentsStyles.js";
 import user from "../../images/pic.PNG";
@@ -34,14 +35,13 @@ const Appointments = () => {
               </Typography>
             </Grid>
           </Grid>
-
-          {patientList.map((item, index) => (
-            <Grid container spacing={2}>
-              <Grid item lg={12}>
+          <Grid container spacing={1}>
+            {patientList.map((item, index) => (
+              <Grid item xs={12} lg={12}>
                 <Paper elevation={3}>
                   <Container fixed>
                     <Grid container>
-                      <Grid item>
+                      <Grid item lg={12}>
                         <Typography className={classes.time}>
                           9:00 am - 10:00 am
                         </Typography>
@@ -70,8 +70,8 @@ const Appointments = () => {
                   </Container>
                 </Paper>
               </Grid>
-            </Grid>
-          ))}
+            ))}
+          </Grid>
         </Container>
       </Paper>
     </>

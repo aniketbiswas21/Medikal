@@ -10,14 +10,14 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 
-const DoctorInfo = () => {
+const DoctorInfo = ({ doctor }) => {
   const classes = useStyles();
   return (
     <>
       <Paper elevation={3} className={classes.paper}>
         <Container fixed>
           <Grid container spacing={0}>
-            <Grid item lg={12}>
+            <Grid item lg={12} xs={12}>
               <List className={classes.list}>
                 <ListItem>
                   <ListItemAvatar>
@@ -34,7 +34,7 @@ const DoctorInfo = () => {
                       primary={
                         <React.Fragment>
                           <Typography variant="h6" className={classes.name}>
-                            Doctor 1
+                            {doctor.name.firstName} {doctor.name.lastName}
                           </Typography>
                         </React.Fragment>
                       }
@@ -45,7 +45,7 @@ const DoctorInfo = () => {
                             className={classes.field}
                             color="textPrimary"
                           >
-                            Field
+                            {doctor.fields[0]}
                           </Typography>
                           {"n years overall experience "}
                         </React.Fragment>
@@ -70,10 +70,7 @@ const DoctorInfo = () => {
           <Grid container spacing={1}>
             <Grid item lg={12}>
               <Typography className={classes.detail}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                {doctor.description}
               </Typography>
             </Grid>
           </Grid>

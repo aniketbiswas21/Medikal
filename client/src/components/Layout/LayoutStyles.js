@@ -63,5 +63,9 @@ export const useStyles = makeStyles((theme) => ({
   },
   container: {
     marginLeft: "250px",
+    [theme.breakpoints.down("md")]: {
+      marginLeft: 0,
+      marginTop: 30,
+    },
   },
 }));

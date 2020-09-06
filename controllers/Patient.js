@@ -1,9 +1,9 @@
 // * NPM Packages
-const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const _ = require("lodash");
 const crypto = require("crypto");
-const CryptoJS = require("crypto-js");
+const moment = require("moment");
+const async = require("async");
 
 // * Models
 const Patient = require("../models/Patient");
@@ -12,7 +12,7 @@ const Patient = require("../models/Patient");
 
 // * Utils
 const validationSchema = require("../validationSchemas/Patient");
-// const smtpTransport = require("../config/emailSetup");
+const smtpTransport = require("../config/emailSetup");
 
 // * Controllers -->
 
@@ -46,11 +46,18 @@ exports.createNewAccount = async (req, res) => {
 
     var newPatient = null;
 
+    // Age calculations
+    const age = moment(new Date(value.dateOfBirth.toString())).diff(
+      moment(new Date()),
+      "years"
+    );
+
     if (value.emergencyContactNo) {
       newPatient = await Patient.create({
         ...reqBody,
         password: password,
         dateOfBirth: new Date(value.dateOfBirth.toString()),
+        age: Number(age),
         contactNo: Number(value.contactNo),
         emergencyContactNo: Number(value.emergencyContactNo),
         joinedOn: new Date(),
@@ -60,6 +67,7 @@ exports.createNewAccount = async (req, res) => {
         ...reqBody,
         password: password,
         dateOfBirth: new Date(value.dateOfBirth.toString()),
+        age: Number(age),
         contactNo: Number(value.contactNo),
         joinedOn: new Date(),
       });
@@ -76,10 +84,15 @@ exports.createNewAccount = async (req, res) => {
 // * Done
 exports.getMyProfile = async (req, res) => {
   try {
-    const patient = await Patient.findById(req.user._id).exec();
+    const patient = await Patient.findById(req.user._id)
+      .select("-password -verificationToken -resetToken")
+      .exec();
     if (!patient) return res.status(400).send("User does not exist.");
 
-    res.status(200).json({ message: "Login Successfull", User: patient });
+    res.status(200).json({
+      message: "Login Successfull",
+      User: patient,
+    });
   } catch (error) {
     console.log("Error occured here -> ", error);
     res.status(400).send("Server denied request.");
@@ -93,29 +106,57 @@ exports.verifyEmailLink = async (req, res) => {
     let user = await Patient.findById(req.user._id).exec();
     if (!user) return res.status(400).send("User does not exist.");
 
-    var token = null;
-    crypto.randomBytes(50, (err, buf) => {
-      token = buf.toString("hex");
-    });
-    const dt = new Date();
+    const generateToken = async () => {
+      const buf = await new Promise((resolve, reject) => {
+        crypto.randomBytes(50, (err, buf) => {
+          if (err) reject("unable to generate token.");
+          resolve(buf.toString("hex"));
+        });
+      });
+    };
 
-    user.verificationToken = token;
-    user.verificationTokenValid = dt.setMinutes(dt.getMinutes() + 30); // 30 mins
+    const token = await generateToken();
 
-    user = await user.save();
+    // ! Not sure if this is the best approach or not.( Not a doc usage. )
 
-    const info = await smtpTransport.sendMail({
-      to: user.emailProp.email,
-      from: `"Medic" <${process.env.EMAIL_ID}>`,
-      subject: "Email Verification.",
-      text: `Click the link to verify your email.\n` + `Link`,
-    });
-    console.log(`Email sent :- ${info.messageId}`);
-    res
-      .status(200)
-      .send(
-        `Email has been sent to ${user.emailProp.email} with further instructions.`
-      );
+    async.parallel(
+      [
+        function (callback) {
+          const dt = new Date();
+          user.verificationTokenValid = dt.setMinutes(dt.getMinutes() + 30); // 30 mins
+          user.verificationToken = token;
+
+          user
+            .save()
+            .then(() => {
+              console.log("User Updated.");
+              callback("User Updated");
+            })
+            .catch((err) => callback(err));
+        },
+        function (callback) {
+          smtpTransport
+            .sendMail({
+              to: user.emailProp.email,
+              from: `"Medic" <${process.env.EMAIL_ID}>`,
+              subject: "Email Verification.",
+              text: `Click the link to verify your email.\n` + `Link`, // ! <- Add link for client website
+            })
+            .then((info) => {
+              console.log("Email sent\n", info);
+              callback("Email Sent.");
+            })
+            .catch((err) => callback(err));
+        },
+      ],
+      function (err) {
+        return res
+          .status(200)
+          .send(
+            `Email has been sent to ${user.emailProp.email} with further instructions.`
+          );
+      }
+    );
   } catch (error) {
     console.log(error);
     res.status(400).send("Server denied request.");
@@ -149,12 +190,9 @@ exports.verifyEmail = async (req, res) => {
 // * Done
 exports.getPatient = async (req, res) => {
   try {
-    const id = CryptoJS.Rabbit.decrypt(
-      req.query.id,
-      process.env.CRYPTO_SECRET_KEY
-    ).toString(CryptoJS.enc.Utf8);
-
-    const patient = await Patient.findById(id).exec();
+    const patient = await Patient.findById(req.params.patientId)
+      .select("-password -verificationToken -resetToken")
+      .exec();
     if (!patient) return res.status(400).send("User does not exist.");
 
     res.status(200).send(patient);
@@ -279,8 +317,11 @@ exports.changeEmail = async (req, res) => {
 // * Done
 exports.forgotPasswordLink = async (req, res) => {
   try {
+    const { value, error } = validationSchema.forgotPasswordLink(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
     let user = await Patient.findOne({
-      "emailProp.email": req.body.email,
+      "emailProp.email": value.email,
     }).exec();
     if (!user) return res.status(400).send("User not found.");
 
@@ -288,26 +329,45 @@ exports.forgotPasswordLink = async (req, res) => {
     const resetToken = buf.toString("hex");
     const dt = new Date();
 
-    user.resetToken = resetToken;
-    user.resetTokenValid = dt.setMinutes(dt.getMinutes() + 15); // 15 mins
+    // ! Not sure if this is the best approach or not.( Not a doc usage. )
+    async.parallel(
+      [
+        function (callback) {
+          user.resetToken = resetToken;
+          user.resetTokenValid = dt.setMinutes(dt.getMinutes() + 15); // 15 mins
 
-    user = await user.save();
-
-    var info = await smtpTransport.sendMail({
-      to: `${user.emailProp.email}`,
-      from: `"Medic" <${process.env.EMAIL_ID}>`,
-      subject: "Link for Reset Password.",
-      text: `Click the link to reset your accounts password.\n`,
-      // html: `<a href="http://localhost:5000/api/patient/forgotPassword/${resetToken}">Verify Email</button>`,
-    });
-
-    console.log("Email sent :- ", info);
-
-    res
-      .status(200)
-      .send(
-        `Email has been sent to ${user.emailProp.email} with further instructions. ${req.originalUrl}`
-      );
+          user
+            .save()
+            .then(() => {
+              console.log("User Updated.");
+              callback("User Updated");
+            })
+            .catch((err) => callback(err));
+        },
+        function (callback) {
+          smtpTransport
+            .sendMail({
+              to: `${user.emailProp.email}`,
+              from: `"Medic" <${process.env.EMAIL_ID}>`,
+              subject: "Link for Reset Password.",
+              text:
+                `Click the link to reset your accounts password.\n` + `Link`, // ! <- Add link for client website
+            })
+            .then((info) => {
+              console.log("Email sent\n", info);
+              callback("Email Sent.");
+            })
+            .catch((err) => callback(err));
+        },
+      ],
+      function (err) {
+        return res
+          .status(200)
+          .send(
+            `Email has been sent to ${user.emailProp.email} with further instructions.`
+          );
+      }
+    );
   } catch (error) {
     console.log(error);
     res.status(400).send("Server denied request.");

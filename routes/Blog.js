@@ -1,9 +1,5 @@
 const express = require("express");
 const path = require("path");
-const fs = require("fs");
-
-// * API Endpoints -->
-const router = express.Router();
 
 // * NPM packages
 const multer = require("multer");
@@ -26,7 +22,7 @@ const {
 const { emailVerifiedPatient } = require("../middleware/patient");
 const advancedResults = require("../middleware/advancedResults");
 
-// * Config
+// * Multer Config
 const storage = multer.diskStorage({
   destination: path.resolve(
     __dirname,
@@ -57,13 +53,32 @@ function checkFileType(file, cb) {
     return cb(null, true);
   }
 }
+// * API Endpoints -->
+const router = express.Router();
 
-// * Routes
+// * Create a new Blog
+// * Done
 router.route("/add").post([emailVerifiedPatient, upload], addBlog);
+
+// * Get all Blogs
+// * Done
 router.route("/view-all").get(advancedResults(Blogs), getAllBlogs);
+
+// * Get single Blog
+// * Done
 router.route("/view/:id").get(getBlogById);
+
+// * Delete a blog
+// * Done
 router.route("/delete/:id").delete([emailVerifiedPatient], deleteBlogById);
+
+// * Edit Blog
+// * Done
 router.route("/update/:id").put([emailVerifiedPatient, upload], updateBlogById);
+
+// * Like a blog
+// TODO
 router.route("/like/:id").put(emailVerifiedPatient, likeBlogById);
 
+// * API Endpoints End -->
 module.exports = router;
